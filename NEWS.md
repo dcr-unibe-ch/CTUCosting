@@ -2,6 +2,32 @@
 
 * add support for CIU and PPI
 
+# CTUCosting 0.7.14 (2025-11-06)
+
+* Support for R&R matrix
+* 'cost estimate' rather than 'cost proposal'
+
+# CTUCosting 0.7.13 (2025-10-29)
+
+* Correct the discount for the new SNF rate
+
+# CTUCosting 0.7.12 (2025-10-28)
+
+* Add SNF 2026 rate
+
+# CTUCosting 0.7.11 (2025-10-23)
+
+* ensure that notes field from generic form is included in the PDF
+* UNIBE projects are not subject to VAT
+
+# CTUCosting 0.7.10 (2025-09-24)
+
+* switch email addresses to operations.dcr
+
+# CTUCosting 0.7.9 (2025-08-21)
+
+* adding a rounding (ceiling) of hours and costs to prevent partial amounts that mess up the formatting
+
 # CTUCosting 0.7.8 (2025-06-03)
 
 * bug fix for costings erroring without FTEs

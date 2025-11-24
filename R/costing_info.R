@@ -58,13 +58,13 @@ costing_info <- function(data, metadata){
   }
 
   rate <- specific_option(metadata, data, "rate")
-  internal <- data$sponsor_insel == 1
 
   # DLF
   # LOGIC FOR DETERMINING WHETHER DLF FUNDING IS RELEVANT
   dlf <- insel
 
-
+  # vat
+  vat <- !(insel | data$institute_noninsel %in% c(1:6, 8))
 
   fn <- function(m, d, v){
     if(nrow(d) > 0){
@@ -77,6 +77,7 @@ costing_info <- function(data, metadata){
     return(out)
   }
 
+
   return(
     list(
       # project
@@ -87,7 +88,7 @@ costing_info <- function(data, metadata){
       acronym =               data$study_abbr,
       initcosting =           initcosting,
       init_or_amendment_txt = init_or_amendment_txt,
-      snf =                   data$rate == 4,
+      snf =                   data$rate %in% 4:5,
       # dlf =                   dlf,
       # signatories
       sponsor =               inst,
@@ -126,7 +127,9 @@ costing_info <- function(data, metadata){
       discount_db =           ifelse(!is.na(data$discount), data$discount, 0),
       discount_chf =          ifelse(!is.na(data$discount_chf), data$discount_chf, 0),
       costing_txt =           ifelse(initcosting, data$costing_txt_init, data$costing_txt_amend),
-      full_service_db =       fn(metadata, dmf, "dmf_cdms")
+      full_service_db =       fn(metadata, dmf, "dmf_cdms"),
+      vat =                   vat,
+      csm_matrix =            fn(metadata, data, "rrmatrix")
     )
   )
 
