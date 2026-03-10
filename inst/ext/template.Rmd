@@ -54,38 +54,6 @@ params:
   </tr>
   <tr>
     <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Dr Ueli Reber</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Head of Business Operations</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Mittelstrasse 43</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>3012 Bern</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Switzerland</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
     <td>www.dcr.unibe.ch</td>
   </tr>
 
@@ -94,7 +62,7 @@ params:
 
 Bern, `r format(Sys.Date(), format = "%d.%m.%Y")`
 
-<p> </p>
+
 
 ```{r, echo = FALSE}
 htmltools::h4("Cost estimate for DCR services")
