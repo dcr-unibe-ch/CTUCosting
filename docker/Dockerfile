@@ -17,7 +17,7 @@ RUN curl -L http://bit.ly/google-chrome-stable -o google-chrome-stable.deb && \
 
 RUN Rscript -e 'install.packages(c("remotes", "websocket"))'
 
-RUN Rscript -e 'remotes::install_github("CTU-Bern/CTUCosting", dependencies = TRUE)'
+RUN Rscript -e 'remotes::install_github("dcr-unibe-ch/CTUCosting@pdfhead2", dependencies = TRUE)'
 
 RUN chown -R shiny:shiny /usr/local/lib/R/site-library/CTUCosting/app/
 
