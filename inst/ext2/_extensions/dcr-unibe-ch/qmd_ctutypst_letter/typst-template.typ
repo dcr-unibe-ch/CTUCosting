@@ -28,7 +28,7 @@
   logo: "DCRlogo.svg",
   // logo_size: percentage (for example, 80%) or auto
   logo_size: 100%,
-  logo2: "unibelogo.svg",
+  logo2: "UniBElogo.svg",
   // logo_size2: percentage (for example, 80%) or auto
   logo_size2: 40%,
   date: datetime.today(),
