@@ -625,10 +625,10 @@ function(input, output, session){
       show_modal_spinner(text = "Compiling PDF",
                          spin = "pixel")
       print("gen_pdf():")
-      gen_pdf(
+      gen_pdfq(
         output = file,
         inputs = inputs,
-        copy_html = TRUE
+        copy_html = FALSE
       )
 
       remove_modal_spinner()

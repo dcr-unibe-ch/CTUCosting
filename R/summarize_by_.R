@@ -11,17 +11,22 @@
 #' @export
 summarize_by_wp <- function(data){
   Service <- wp <- wp_lab <- desc <- Hours <- Units <- Rate <- Cost <- NULL
-  data |>
-    group_by(Service, wp, wp_lab) |>
-    collapse::fsummarize(Description = paste(desc, collapse = ", "),
-              Hours = sum(Hours * Units),
-              Rate = mean(Rate),
-              Cost = sum(Cost)
-    ) |>
-    mutate(
-      Hours = ceiling(Hours),
-      Cost = ceiling(Cost)
-    )
+  if(nrow(data) > 0){
+    data |>
+      group_by(Service, wp, wp_lab) |>
+      collapse::fsummarize(Description = paste(desc, collapse = ", "),
+                Hours = sum(Hours * Units),
+                Rate = mean(Rate),
+                Cost = sum(Cost)
+      ) |>
+      mutate(
+        Hours = ceiling(Hours),
+        Cost = ceiling(Cost)
+      )
+  } else {
+    data.frame(Description = vector(length = 0), Hours = vector(length = 0),
+               Rate = vector(length = 0), Cost = vector(length = 0))
+  }
 }
 
 #' @rdname summarize_by
