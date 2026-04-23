@@ -78,7 +78,7 @@ if(!params$initcosting){
 ```
 
 ```{=typst}
-#v(-10pt)
+#v(-5pt)
 ```
 
 ```{r}
