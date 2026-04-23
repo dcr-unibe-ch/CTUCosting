@@ -24,6 +24,7 @@ Imports:
     openxlsx,
     pagedown,
     purrr,
+    quarto, 
     readxl,
     redcaptools,
     shiny,
