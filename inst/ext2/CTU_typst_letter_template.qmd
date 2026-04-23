@@ -247,13 +247,13 @@ if(nrow(workpackagedata) > 0){
 }
 breaks <- as.numeric(params$break_tasks)
 n_breaks <- length(breaks)
-breaks_tf <- n_breaks > 0
+breaks_tf <- n_breaks > 0 
 nobreaks <- !breaks_tf
 ```
 
 ```{r}
 #| label: tasksout
-if(nobreaks){
+if(nobreaks & nrow(workpackagedata) > 0){
   tmp %>%
     gt_fn() |>
     gt_widths()
@@ -263,7 +263,7 @@ if(nobreaks){
 ```{r}
 #| label: tasksloop
 #| results: asis
-if(breaks_tf){
+if(breaks_tf & nrow(workpackagedata) > 0){
   ends <- c(breaks, nrow(tmp))
   starts <- c(1, breaks + 1)
   
