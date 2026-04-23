@@ -7,9 +7,8 @@
 "Insel Data Science Center, Technologie IDSC (DTI)","Matthias Kämpf",TRUE
 "Insel Data Science Center, Bio-Imaging (DTI)","Mauricio Reyes",TRUE
 "Institut für Physiotherapie","Dr. Martin Verra",FALSE
-"Institute of Social and Preventive Medicine (ISPM)","Prof. Dr. Marcel Zwahlen",FALSE
+"Institute of Social and Preventive Medicine (ISPM)","Prof. Dr. med. Angèle Gayet-Ageron",FALSE
 "Notfallzentrum für Kinder und Jugendliche","Dr. med. Isabelle Steiner",TRUE
-"Universitätsklinik für Notfallmedizin","Prof. Dr. Aristomenis Exadaktylos",TRUE
 "Universitäres Zentrum für Palliative Care","Prof. Dr. Steffen Eychmüller",TRUE
 "Universitätsinstitut für Diagnostische und Interventionelle Neuroradiologie","Prof. Dr. Jan Gralla",TRUE
 "Universitätsinstitut für Diagnostische, Interventionelle und Pädiatrische Radiologie","Prof. Dr. Andreas Christe",TRUE
@@ -35,6 +34,7 @@
 "Universitätsklinik für Nephrologie und Hypertonie","Prof. Dr. Daniel Fuster",TRUE
 "Universitätsklinik für Neurochirurgie","Prof. Dr. Andreas Raabe",TRUE
 "Universitätsklinik für Neurologie","Prof. Dr. Urs Fischer",TRUE
+"Universitätsklinik für Notfallmedizin","Prof. Dr. Beat Lehmann",TRUE
 "Universitätsklinik für Nuklearmedizin","Prof. Dr. Axel Rominger",TRUE
 "Universitätsklinik für Orthopädische Chirurgie","Prof. Dr. Moritz Tannast",TRUE
 "Universitätspoliklinik für Osteoporose","Prof. Dr. Kurt Lippuner",TRUE
@@ -48,7 +48,7 @@
 "Universitätsklinik für Urologie","Prof. Dr. Beat Roth",TRUE
 "Universitätsklinik für Viszerale Chirurgie und Medizin","Prof. Dr. Daniel Candinas",TRUE
 "Universitätsklinik für Viszerale Chirurgie und Medizin, Viscerale und Transplantationschirurgie","Prof. Dr. Daniel Candinas",TRUE
-"Universitätsklinik für Viszerale Chirurgie und Medizin, Gastroenterologie","Prof. Dr. med. Reiner Wiest",TRUE
+"Universitätsklinik für Viszerale Chirurgie und Medizin, Gastroenterologie","Prof. Dr. med. Sebastian Zeissig",TRUE
 "Universitätsklinik für Viszerale Chirurgie und Medizin, Hepatologie","Prof. Dr. med. Annalisa Berzigotti",TRUE
 "Berner Institut für Hausarztmedizin (BIHAM)","Prof. Dr. med. Nicolas Rodondi",FALSE
 "Zentrum für Rehabilitation und Sportmedizin","Prof. Dr. med. Matthias Wilhelm",TRUE

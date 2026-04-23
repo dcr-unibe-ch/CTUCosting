@@ -1,6 +1,21 @@
+
 # CTUCosting 0.8.0 (2025-08-14)
 
+* IMPORTANT - only yellow or green forms are included in costings now
 * add support for CIU and PPI
+* switch from using pagedown (and chrome) to quarto (typst) for generating PDFs
+
+# CTUCosting 0.7.17 (2026-02-16)
+
+* update new head of ISPM
+
+# CTUCosting 0.7.16 (2026-02-04)
+
+* update new head of Notfallmedizin
+
+# CTUCosting 0.7.15 (2025-12-11)
+
+* update new head of gastroenterologie
 
 # CTUCosting 0.7.14 (2025-11-06)
 

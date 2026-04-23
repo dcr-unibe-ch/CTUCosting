@@ -8,12 +8,13 @@ RUN apt-get update -qq && \
         libz-dev \
         libpoppler-cpp-dev \
         pandoc \
-        curl
+        curl \
+	libssl-dev
 
 RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
 RUN gdebi --non-interactive quarto-linux-amd64.deb
 
-RUN Rscript -e 'install.packages(c("remotes"))'
+RUN Rscript -e 'install.packages(c("remotes", "websocket"))'
 
 RUN Rscript -e 'remotes::install_github("CTU-Bern/CTUCosting", dependencies = TRUE)'
 
