@@ -16,7 +16,7 @@ RUN gdebi --non-interactive quarto-linux-amd64.deb
 
 RUN Rscript -e 'install.packages(c("remotes", "websocket"))'
 
-RUN Rscript -e 'remotes::install_github("CTU-Bern/CTUCosting", dependencies = TRUE)'
+RUN Rscript -e 'remotes::install_github("dcr-unibe-ch/CTUCosting", dependencies = TRUE)'
 
 RUN chown -R shiny:shiny /usr/local/lib/R/site-library/CTUCosting/app/
 
