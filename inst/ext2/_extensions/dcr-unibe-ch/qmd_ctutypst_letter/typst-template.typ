@@ -49,6 +49,9 @@
   // Set the body font
   set text(font: font-face)
 
+  // set list (bullet point) indent
+  set list(indent: 5pt)
+
   // function to remove tildes
   let clean(s) = s.replace("~", " ")
 
@@ -152,30 +155,30 @@ place(
   v(space_after_recipient)
 
   // Place and date
-  text(size: 10pt, "Bern, ")
-  text(size: 10pt, date.display("[day] [month repr:long] [year]"))
+  text(size: 9pt, "Bern, ")
+  text(size: 9pt, date.display("[day] [month repr:long] [year]"))
   v(10pt)
 
   // Subject
-  text(size: 12pt, weight: "bold")[#subject]
+  text(size: 10pt, weight: "bold")[#subject]
   if(subject2 != ""){
     linebreak(justify: false)
-    text(size: 10pt, weight: "bold")[#subject2]
+    text(size: 9pt, weight: "bold")[#subject2]
   }
   v(10pt)
 
   // Letter
-  //text(size: 10pt)[Dear #clean(recipient)]
+  //text(size: 9pt)[Dear #clean(recipient)]
   //v(10pt)
-  text(size: 10pt)[#body]
+  text(size: 9pt)[#body]
   if(signoff){
     v(10pt)
-    text(size: 10pt)[Kind regards]
+    text(size: 9pt)[Kind regards]
     linebreak( justify: false)
     linebreak( justify: false)
-    text(size: 10pt)[#clean(sender)]
+    text(size: 9pt)[#clean(sender)]
     linebreak( justify: false)
-    text(size: 10pt)[#sender_title]
+    text(size: 9pt)[#sender_title]
   }
 
 }

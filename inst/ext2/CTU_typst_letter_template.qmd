@@ -169,10 +169,10 @@ library(dplyr)
 library(glue)
 gt_fn <- function(x){
   gt::gt(x) |> 
-    gt::tab_options(table.font.size = "12px",
+    gt::tab_options(table.font.size = "8pt",
                     table.width = "100%",
                     row_group.background.color = "lightgrey",
-                    data_row.padding = "2px",
+                    data_row.padding = "2pt",
                     table.font.names = "Arial",
                     table.font.color = "black",
                     table.font.color.light = "black",
@@ -369,8 +369,7 @@ if(!is.null(params$total)){
 
 ```{r breaknotes}
 #| eval: !expr params$break_notes
-cat("\\newpage")
-cat("\n\n")
+knitr::raw_block("#pagebreak()", type = "typst")
 ```
 
 ```{r}
