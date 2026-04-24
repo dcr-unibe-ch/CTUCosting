@@ -2,8 +2,8 @@
 # CTUCosting 0.8.0 (2025-08-14)
 
 * IMPORTANT - only yellow or green forms are included in costings now
-* add support for CIU and PPI
 * switch from using pagedown (and chrome) to quarto (typst) for generating PDFs
+* add support for CIU and PPI (currently commented out)
 
 # CTUCosting 0.7.17 (2026-02-16)
 
