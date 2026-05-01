@@ -1,7 +1,7 @@
 Package: CTUCosting
 Type: Package
 Title: Machinery for CTU costings
-Version: 0.7.17
+Version: 0.8.0
 Authors@R:
     c(
     person(given = "Alan G.", family = "Haynes", role = "cre",
@@ -24,6 +24,7 @@ Imports:
     openxlsx,
     pagedown,
     purrr,
+    quarto, 
     readxl,
     redcaptools,
     shiny,
@@ -47,7 +48,7 @@ Suggests:
     testthat (>= 3.0.0),
     vdiffr
 Remotes:
-    CTU-Bern/redcaptools
+    dcr-unibe-ch/redcaptools
 VignetteBuilder: knitr
 LazyData: true
 Config/testthat/edition: 3

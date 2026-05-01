@@ -1,0 +1,405 @@
+---
+# format: typst
+format: qmd_ctutypst_letter-typst
+recipient: "`r params$contact`"
+address_recipient: false
+address_recipient_line1: "`r params$sponsor`"
+address_recipient_line2: ""
+address_recipient_line3: ""
+address_recipient_line4: ""
+address_recipient_line5: ""
+space_after_recipient: 20pt
+subject: "Cost estimate for DCR services"
+subject2: ""
+sender: "Dr. Ueli Reber"
+sender_title: "Head of Business Operations"
+sender_line1: "DCR"
+sender_line2: "sitem"
+sender_line3: "Freiburgstrasse 3"
+sender_line4: "3010 Bern"
+sender_line5: "Switzerland"
+sender_line6: "www.dcr.unibe.ch"
+department: "Department of Clinical Research"
+faculty: "Faculty of Medicine"
+includesenderright: false
+signoff: false
+keep-md: true
+keep-typ: true
+params:
+  studyname: "Some Long, Ominous, Probably PithY, title"
+  acronym: "SLOPPY"
+  projnum: 1234
+  consultingnum: 5678
+  sponsor: "Sponsor"
+  contact: "Dr McDoctorson"
+  design: "Randomized-controlled trial"
+  intervention: "IMP/IMD/..."
+  n_participants: 100
+  n_sites: 1
+  location: "Swiss"
+  conduct_time: 5
+  complex: "simple"
+  cturep: "CTU employee"
+  # workpackages: NULL
+  internal: FALSE
+  total: NULL
+  discount: NULL
+  expenses: NULL
+  notes: NA
+  break_ftes: FALSE
+  break_totals: FALSE
+  break_notes: FALSE
+  break_tasks: NULL
+  break_projinfo: FALSE
+  first_page_text: "template text"
+  initcosting: TRUE
+  include_design: TRUE
+  include_int: TRUE
+  include_participants: TRUE
+  filename: "filename"
+  vat: FALSE
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+```{=typst}
+#v(-8pt)
+#set table(stroke: 0pt)
+#text(size: 8pt)[
+```
+
+```{r}
+#| results: asis
+if(!params$initcosting){
+  cat("**Amendment to an existing service agreement**\n\n")
+}
+```
+
+```{=typst}
+#v(-5pt)
+```
+
+```{r}
+#| results: asis
+cat(paste0("**Project: ", params$studyname, " (", params$acronym, ")**\n\n"))
+```
+
+```{=typst}
+#v(-5pt)
+```
+
+```{r}
+#| results: asis
+cat(paste0("**DCR internal ", ifelse(params$initcosting, "consulting", "project"), " number: ", ifelse(params$initcosting, params$consultingnum, params$projnum), "**"))
+```
+
+```{=typst}
+]
+```
+
+Dear `r params$contact`,
+
+
+`r params$first_page_text`
+
+For questions regarding this offer, please contact your DCR consultant or send an email to [operations.dcr\@unibe.ch](mailto:operations.dcr@unibe.ch){.email}.
+
+We look forward to your reply.
+
+`#linebreak() `{=typst}
+
+Kind regards,
+`#linebreak() `{=typst}
+`#linebreak() `{=typst}
+Dr. Ueli Reber
+`#linebreak() `{=typst}
+Head of Business Operations
+
+```{r}
+#| label: genprojinfo
+#| results: asis
+#| eval: !expr params$break_projinfo
+cat(knitr::raw_block("#pagebreak()", type = "typst"))
+```
+
+### General project information {.unnumbered}
+
+Project name and acronym: **`r paste0(params$studyname, " (", params$acronym, ")")`**
+
+Institution: **`r params$sponsor`**
+
+Responsible: **`r params$contact`**
+
+```{r}
+#| eval: !expr params$include_design
+#| results: asis
+#| echo: false
+cat(paste0('Study design: **', params$design, "**\n\n"))
+```
+
+```{r}
+#| eval: !expr params$include_int
+#| results: asis
+#| echo: false
+cat(paste0('Type of intervention: **', params$intervention, "**\n\n"))
+```
+
+```{r, eval = params$include_participants, results='asis', echo = FALSE}
+#| eval: !expr params$include_participants
+#| results: asis
+#| echo: false
+cat(paste0('Number of participants: **', params$n_participants, "** from **", 
+    params$n_sites, " ", params$location, "** site(s) over a study time of **", 
+    params$conduct_time, "** years."))
+```
+
+
+
+
+```{r}
+#| label: pkg_funs
+
+breaks_tf <- n_breaks <- FALSE
+
+library(gt)
+library(CTUCosting)
+library(dplyr)
+library(glue)
+gt_fn <- function(x){
+  gt::gt(x) |> 
+    gt::tab_options(table.font.size = "8pt",
+                    table.width = "100%",
+                    row_group.background.color = "lightgrey",
+                    data_row.padding = "2pt",
+                    table.font.names = "Arial",
+                    table.font.color = "black",
+                    table.font.color.light = "black",
+                    # # Remove all main table borders
+                    # table.border.top.width = px(10),
+                    # table.border.bottom.width = px(10),
+                    # # Remove column label borders
+                    # column_labels.border.bottom.width = px(0),
+                    # # Remove body borders
+                    # table_body.border.top.width = px(0),
+                    # table_body.border.bottom.width = px(0), 
+                    # # Removes the vertical borders for the overall table frame
+                    # table.border.left.style = "hidden",
+                    # table.border.right.style = "hidden",
+                    # # Removes vertical borders between columns
+                    # table_body.hlines.style = "hidden", # Horizontal lines
+                    # table_body.vlines.style = "hidden",  # Vertical lines
+                    column_labels.border.bottom.width = px(0),
+                    table_body.border.bottom.width = px(0),
+                    table_body.border.top.width = px(0)
+    ) |> 
+    cols_align(columns = `Cost (CHF)`,
+               align = "right") |> 
+    tab_style(
+      style = cell_text(v_align = "top"),
+      locations = cells_body()
+    ) |> 
+    tab_style(
+      style = cell_text(v_align = "top"),
+      locations = cells_column_labels(columns = everything())
+    )
+}
+
+gt_widths <- function(x){
+  x  |> 
+    gt::cols_width(Task ~ "20%",
+                   Description ~ "60%",
+                   Hours ~ "7%",
+                   `Cost (CHF)` ~ "13%",
+    )
+}
+fte_gt_widths <- function(x){
+  x  |> 
+    gt::cols_width(Description ~ "60%",
+                   FTE ~ "12%",
+                   `Number of years` ~ "15%",
+                   `Cost (CHF)` ~ "13%",
+    )
+}
+
+ftedata <- readRDS("ftedata")
+workpackagedata <- readRDS("workpackagedata")
+```
+
+
+```{r}
+#| label: taskstitle
+#| results: asis
+if(nrow(workpackagedata) > 0){
+  cat("### Tasks for DCR to provide {.unnumbered}")
+}
+```
+
+```{r}
+#| label: tasks
+if(nrow(workpackagedata) > 0){
+  tmp <- workpackagedata  |>
+    select_for_pdf() |>
+    group_by(Service) |>
+    mutate(Cost = format(Cost, big.mark = "'", nsmall = 0)) |>
+    rename(`Cost (CHF)` = Cost)
+}
+breaks <- as.numeric(params$break_tasks)
+n_breaks <- length(breaks)
+breaks_tf <- n_breaks > 0 
+nobreaks <- !breaks_tf
+```
+
+```{r}
+#| label: tasksout
+if(nobreaks & nrow(workpackagedata) > 0){
+  tmp %>%
+    gt_fn() |>
+    gt_widths()
+} 
+```
+
+```{r}
+#| label: tasksloop
+#| results: asis
+if(breaks_tf & nrow(workpackagedata) > 0){
+  ends <- c(breaks, nrow(tmp))
+  starts <- c(1, breaks + 1)
+  
+  res <- lapply(seq_along(starts),
+                \(x) {
+                  knitr::knit_child(text = c("```{r, echo = FALSE, message = FALSE}",
+                                             glue("index <- (starts[{x}]):(ends[{x}])"),
+                                             "  tmp[index ,] |> ",
+                                             "  gt_fn() |> gt_widths()",
+                                             "```"),
+                                    quiet = TRUE)
+                })
+  
+  for(i in seq_along(res)){
+    cat(res[[i]])
+    
+    if(i < length(res)) cat(knitr::raw_block("#pagebreak()", type = "typst"))
+  }
+}
+```
+
+```{r}
+#| label: breakftes
+#| results: asis
+#| eval: !expr params$break_ftes
+knitr::raw_block("#pagebreak()", type = "typst")
+```
+
+```{r}
+#| label: ftes_title
+#| eval: !expr ftedata$fte
+#| results: asis
+cat("### Full time equivalents {.unnumbered}\n\n")
+
+# cat(paste0("Position title: **", params$fte$role, "**"))
+```
+
+```{r}
+#| label: ftes
+#| eval: !expr ftedata$fte
+ftedata$costs |> 
+  # as.data.frame() |> 
+  rename(Description = desc,
+         FTE = prop,
+         `Number of years` = units,
+         Cost = cost) |>
+  mutate(Cost = format(Cost, big.mark = "'", nsmall = 0)) |>
+  rename(`Cost (CHF)` = Cost) |> 
+  group_by(fte_role) |> 
+  gt_fn() |> 
+  tab_style(style = cell_text(align = "right"),
+            locations = cells_column_labels(columns = c("FTE", `Number of years`, `Cost (CHF)`))) |> 
+  fte_gt_widths()
+```
+
+
+
+
+```{r}
+#| labels: expenseslab
+#| results: asis
+if(!is.null(params$expenses)){
+  cat("### Expenses {.unnumbered}")
+}
+```
+
+
+```{r}
+#| labels: expensestab
+if(!is.null(params$expenses)){
+  params$expenses |> 
+    as.data.frame() |> 
+    rename(`Cost (CHF)` = Cost..CHF.) |> 
+    mutate(`Cost (CHF)` = format(`Cost (CHF)`, big.mark = "'", nsmall = 0)) |>
+    gt_fn() |> 
+    gt::cols_width(Division ~ "28%",
+                   Description ~ "60%",
+                   `Cost (CHF)` ~ "12%")
+}
+```
+
+```{r}
+#| label: breaktotals
+#| results: asis
+#| eval: !expr params$break_totals
+knitr::raw_block("#pagebreak()", type = "typst")
+```
+
+### Totals {.unnumbered}
+
+```{r}
+#| label: totalstab
+if(!is.null(params$total)){
+  params$total |> 
+    as.data.frame() |> 
+    rename(`Cost (CHF)` = Cost..CHF.) |> 
+    gt_fn() |> 
+    gt::cols_width(Description ~ "87%",
+                   `Cost (CHF)` ~ "13%",
+    )
+}
+```
+
+```{r breaknotes}
+#| eval: !expr params$break_notes
+knitr::raw_block("#pagebreak()", type = "typst")
+```
+
+```{r}
+#| label: notes
+#| results: asis
+notes <- params$notes
+if(length(notes) > 0 && !is.na(notes) && notes != "NA"){
+  cat("### Notes: {.unnumbered}\n\n")
+  cat(notes)
+  cat("\n\n")
+}
+```
+
+
+### General notes: {.unnumbered}
+
+This offer is valid for two months.
+
+For questions regarding the costing, please contact your DCR consultant or [operations.dcr@unibe.ch](mailto:operations.dcr@unibe.ch){.email}.
+
+All costs mentioned above are rounded up to the nearest 1 CHF.
+
+```{r}
+#| results: asis
+if(any(grepl("Discount due to number of hours", params$total$Description))) 
+  cat("The discount is calculated from eligible work packages and might not be based on the overall amount.\n\n")
+
+if(params$vat) cat("Please consider that this cost estimate does not include VAT (8.1%) which may apply.")
+```
+
+The proposed hours may vary depending on the complexity of the trial. 
+
+Note that the above mentioned hourly rate is subject to annual adaptation. Check [www.dcr.unibe.ch](https://www.dcr.unibe.ch) for the most up-to-date hourly rate.

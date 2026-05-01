@@ -11,6 +11,9 @@ url <- "https://redcap.ctu.unibe.ch/api/"
 #' @param token API token
 #' @importFrom redcaptools redcap_export_tbl redcap_export_byform redcap_export_meta
 #' @importFrom glue glue
+#' @importFrom tidyr fill
+#' @importFrom dplyr rename_with
+#'
 #' @export
 get_data <- function(record, costing, token){
   record_id <- NULL
@@ -20,7 +23,15 @@ get_data <- function(record, costing, token){
                        events = paste0("costing_", costing, "_arm_1"))
 
   lapply(d, function(x){
-    x |> filter(record_id == record)
+    xx <- x |> filter(record_id == record)
+
+    if(!("initial_costing" %in% names(xx)))
+      xx <- xx |>
+        rename_with(~"form_status", .cols = last_col()) |>
+        fill(form_status, .direction = "down") |>
+        filter(form_status > 0)
+
+    return(xx)
   })
 
   # redcap_export_tbl(token, url, "record",

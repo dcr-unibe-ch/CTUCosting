@@ -35,8 +35,8 @@ record_costings_exist <- function(datalist){
   fte <- datalist$full_time_equivalent
   z <- datalist[-which(names(datalist) %in% c("meta_information", "study_website", "full_time_equivalent"))]
   any(sapply(z[1:(length(z) - 1)], nrow) > 0,
-    fte$full_time_equivalent_complete > 0,
-    sw$study_website_complete > 0)
+    fte$form_status > 0,
+    sw$form_status > 0)
 }
 
 

@@ -9,15 +9,30 @@ RUN apt-get update -qq && \
         libpoppler-cpp-dev \
         pandoc \
         curl \
-	libssl-dev
+        libssl-dev \
+        libuv1-dev
 
-RUN curl -L http://bit.ly/google-chrome-stable -o google-chrome-stable.deb && \
-    apt-get -y install ./google-chrome-stable.deb && \
-    rm google-chrome-stable.deb
+# install Arial
+# 1. Enable 'multiverse' component for Ubuntu 24.04
+RUN sed -i 's/Components: main universe/Components: main universe restricted multiverse/' /etc/apt/sources.list.d/ubuntu.sources
 
-RUN Rscript -e 'install.packages(c("remotes", "websocket"))'
+# 2. Install fontconfig and pre-accept Microsoft EULA
+RUN apt-get update && apt-get install -y --no-install-recommends fontconfig && \
+    echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
 
-RUN Rscript -e 'remotes::install_github("CTU-Bern/CTUCosting", dependencies = TRUE)'
+# 3. Install fonts and refresh cache
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ttf-mscorefonts-installer && \
+    fc-cache -f -v && \
+    rm -rf /var/lib/apt/lists/*
+
+# install quarto
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+RUN gdebi --non-interactive quarto-linux-amd64.deb
+
+RUN Rscript -e 'install.packages(c("pak", "websocket"))'
+
+RUN Rscript -e 'pak::pkg_install("dcr-unibe-ch/CTUCosting", dependencies = TRUE)'
 
 RUN chown -R shiny:shiny /usr/local/lib/R/site-library/CTUCosting/app/
 
